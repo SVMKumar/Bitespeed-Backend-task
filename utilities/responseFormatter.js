@@ -18,8 +18,16 @@ responseFormatter.secondaryCreated = async (primary) => {
     response.emails = [...new Set([primary.email, ...related.map((r) => r.email)].filter(Boolean))],
     response.phoneNumbers = [...new Set([primary.phoneNumber, ...related.map((r) => r.phoneNumber)].filter(Boolean))],
     response.secondaryContactIds = related.map(r => r.id);
-    console.log(response);
     return {contact: response}
+}
+
+responseFormatter.changeState = async (primary, orders) => {
+    let response = {};
+    responseFormatter.primaryContactId = primary.id;
+    response.emails = [...new Set([primary.email, ...orders.map((o) => o.email)].filter(Boolean))],
+    response.phoneNumbers = [...new Set([primary.phoneNumber, ...orders.map((o) => o.phoneNumber)].filter(Boolean))],
+    response.secondaryContactIds = orders.map((o) => o.id);
+    return {contact: response};
 }
 
 module.exports = responseFormatter;
