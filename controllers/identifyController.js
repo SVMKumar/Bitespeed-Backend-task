@@ -8,10 +8,10 @@ identifyController.getInputs = async (req, res) => {
         const phoneNumber = req.body?.phoneNumber || null;
         console.log(email, phoneNumber);
         const response = await identifyService.identify(email, phoneNumber);
-        console.log(response);
         res.json(response);
     }
     catch (err) {
+        console.log(err);
         res.send("Error: " + err.message);
     }
 }

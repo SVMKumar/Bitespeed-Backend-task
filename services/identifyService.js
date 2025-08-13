@@ -10,7 +10,7 @@ identifyService.identify = async (email, phoneNumber) => {
     }
     let query = {};
     if (email && phoneNumber) {
-        query = {email, phoneNumber};
+        query = { $or: [ { email }, { phoneNumber } ] };
     }
     else if (email) {
         query = {email};
@@ -22,8 +22,15 @@ identifyService.identify = async (email, phoneNumber) => {
 
     if (hits.length === 0) {
         const newOrder = await order.create({email, phoneNumber});
-        console.log(newOrder);
         return responseFormatter.created(newOrder);
+    }
+    else {
+        const primary = hits.find((c) => c.linkPrecedence === 'primary');
+        const exists = hits.some((c) =>(c.email === email && c.phoneNumber === phoneNumber) || (c.email === email && !phoneNumber) || (c.phoneNumber === phoneNumber && !email));
+        if (!exists) {
+            const newOrder = await order.create({email, phoneNumber, linkPrecedence: 'secondary', linkedId: primary.id});
+            return responseFormatter.secondaryCreated(primary);
+        }
     }
 }
 

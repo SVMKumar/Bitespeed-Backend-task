@@ -6,7 +6,7 @@ const orderSchema = new mongoose.Schema({
     id: {type: Number},
     phoneNumber: {type: String},
     email: {type: String},
-    linkedIn: {type: Number},
+    linkedId: {type: Number},
     linkPrecedence: {type: String, enum: ['primary', 'secondary'], default: 'primary'},
     createdAt: {type: Date, default: Date.now},
     updatedAt: {type: Date, default: Date.now},
