@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 
 const connectDB = require('./config/db');
@@ -9,6 +10,8 @@ const app = express();
 dotenv.config();
 
 connectDB();
+
+app.use(bodyParser.json());
 
 app.use('/', router);
 

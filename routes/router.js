@@ -1,9 +1,8 @@
 const express = require('express');
-
 const router = express.Router();
 
-router.get('/identify', (req, res) => {
-    res.send("<h1>Sending Response</h1>");
-});
+const identifyController = require('../controllers/identifyController');
+
+router.post('/identify', identifyController.getInputs);
 
 module.exports = router;

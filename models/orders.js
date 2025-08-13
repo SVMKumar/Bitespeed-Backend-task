@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
-const mongooseSequence = require('mongoose-sequence');
+const mongooseSequence = require('mongoose-sequence') (mongoose);
 
 
 const orderSchema = new mongoose.Schema({
-    id: {type: Number, required: true},
+    id: {type: Number},
     phoneNumber: {type: String},
     email: {type: String},
     linkedIn: {type: Number},
-    linkPrecedence: {type: Number, enum: ['primary', 'secondary'], default: 'primary',required: true},
+    linkPrecedence: {type: String, enum: ['primary', 'secondary'], default: 'primary'},
     createdAt: {type: Date, default: Date.now},
     updatedAt: {type: Date, default: Date.now},
     deletedAt: {type: Date}
